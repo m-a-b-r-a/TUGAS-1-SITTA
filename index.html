@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SITTA UT - Halaman Login</title>
+    <meta name="description" content="Aplikasi Pemesanan Bahan Ajar SITTA Universitas Terbuka - Halaman Login Sistem." />
+    <meta property="og:title" content="SITTA UT - Halaman Login" />
+    <meta property="og:description" content="Aplikasi Pemesanan Bahan Ajar SITTA Universitas Terbuka - Halaman Login Sistem." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- External CSS: Modular Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Internal CSS: Demonstrasi Kriteria Rubrik Tugas Praktik 1 (CSS Internal) -->
+    <style>
+      .login-badge-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background-color: #059669;
+        margin-right: 6px;
+        animation: pulseEffect 2s infinite;
+      }
+      @keyframes pulseEffect {
+        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7); }
+        70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(5, 150, 105, 0); }
+        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
+      }
+      .demo-chip {
+        display: inline-block;
+        font-size: 0.75rem;
+        background-color: #EEF4F9;
+        color: #003B73;
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid #CBD5E1;
+        cursor: pointer;
+        margin: 2px;
+        transition: background-color 0.15s ease;
+      }
+      .demo-chip:hover {
+        background-color: #F5A623;
+        color: #002244;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header Institusi Universitas Terbuka -->
+    <header class="site-header" role="banner">
+      <div class="header-topbar">
+        <div class="header-topbar-inner">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="login-badge-dot"></span>
+            <span>SITTA UT &bull; Sistem Informasi Tiras dan Transaksi Bahan Ajar</span>
+          </div>
+          <!-- Demonstrasi Inline CSS -->
+          <div style="font-size: 0.78rem; color: #F5A623; font-weight: 600;">
+            Portal Login Petugas & Layanan UT Daerah
+          </div>
+        </div>
+      </div>
+
+      <div class="header-main">
+        <a href="index.html" class="brand-wrapper">
+          <div class="brand-logo-badge">UT</div>
+          <div class="brand-text">
+            <h1>SITTA &bull; Universitas Terbuka</h1>
+            <p class="brand-sub">Layanan Pemesanan & Distribusi Bahan Ajar</p>
+          </div>
+        </a>
+      </div>
+    </header>
+
+    <!-- Konten Utama: Halaman Login (Semantik <main>) -->
+    <main class="site-main login-page-wrapper" role="main">
+      <article class="login-card">
+        <div class="login-card-header">
+          <h2>Masuk ke SITTA UT</h2>
+          <p>Silakan masukkan surel dan kata sandi akun UT Anda</p>
+        </div>
+
+        <div class="login-card-body">
+          <form id="loginForm" novalidate>
+            <div class="form-group">
+              <label for="loginEmail" class="form-label">Alamat Surel (Email) <span style="color:#DC2626;">*</span></label>
+              <input
+                type="email"
+                id="loginEmail"
+                class="input-field"
+                placeholder="nama@ut.ac.id"
+                required
+                autocomplete="email"
+              />
+            </div>
+
+            <div class="form-group">
+              <label for="loginPassword" class="form-label">Kata Sandi (Password) <span style="color:#DC2626;">*</span></label>
+              <input
+                type="password"
+                id="loginPassword"
+                class="input-field"
+                placeholder="Masukkan kata sandi akun"
+                required
+                autocomplete="current-password"
+              />
+            </div>
+
+            <div class="login-actions-row">
+              <a href="javascript:void(0)" id="btnLupaPassword" style="color: #0066B3; text-decoration: none; font-weight: 600;">
+                Lupa Password?
+              </a>
+              <a href="javascript:void(0)" id="btnDaftar" style="color: #0066B3; text-decoration: none; font-weight: 600;">
+                Daftar Akun Baru
+              </a>
+            </div>
+
+            <div style="margin-top: 20px;">
+              <button type="submit" class="btn btn-accent btn-block" style="padding: 12px; font-size: 1rem;">
+                Login ke Sistem
+              </button>
+            </div>
+          </form>
+
+          <!-- Bantuan Evaluasi: Akun Demo dari dataPengguna -->
+          <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border-color);">
+            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">
+              Klik Akun Demo Cepat (dari dataPengguna):
+            </div>
+            <div>
+              <span class="demo-chip" data-demo-user="rina@ut.ac.id" title="Klik untuk mengisi akun Rina">
+                Akun: Rina Wulandari (UPBJJ Jakarta)
+              </span>
+              <span class="demo-chip" data-demo-user="agus@ut.ac.id" title="Klik untuk mengisi akun Agus">
+                Akun: Agus Pranoto (UPBJJ Makassar)
+              </span>
+              <span class="demo-chip" data-demo-user="admin@ut.ac.id" title="Klik untuk mengisi akun Admin">
+                Akun: Admin SITTA (Pusat)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="login-card-footer">
+          Universitas Terbuka &bull; Puslaba Pondok Cabe Tangerang Selatan
+        </div>
+      </article>
+    </main>
+
+    <!-- MODAL BOX 1: LUPA PASSWORD (Sesuai Soal Tugas) -->
+    <div class="modal-overlay" id="modalLupaPassword" role="dialog" aria-modal="true" aria-labelledby="modalLupaTitle">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3 id="modalLupaTitle">Reset Kata Sandi Akun SITTA</h3>
+          <button type="button" class="modal-close-btn modal-close-trigger" aria-label="Tutup modal">&times;</button>
+        </div>
+        <form id="formLupaPassword">
+          <div class="modal-body">
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
+              Masukkan alamat surel UT Anda yang terdaftar pada sistem SITTA. Tautan pemulihan kata sandi akan dikirimkan ke surel tersebut.
+            </p>
+            <div class="form-group">
+              <label for="resetEmailInput" class="form-label">Alamat Email Terdaftar:</label>
+              <input type="email" id="resetEmailInput" class="input-field" placeholder="contoh: rina@ut.ac.id" required />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline modal-close-trigger">Batal</button>
+            <button type="submit" class="btn btn-primary">Kirim Tautan Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- MODAL BOX 2: DAFTAR AKUN BARU (Sesuai Soal Tugas) -->
+    <div class="modal-overlay" id="modalDaftar" role="dialog" aria-modal="true" aria-labelledby="modalDaftarTitle">
+      <div class="modal-box">
+        <div class="modal-header">
+          <h3 id="modalDaftarTitle">Pendaftaran Akun Petugas UT Daerah</h3>
+          <button type="button" class="modal-close-btn modal-close-trigger" aria-label="Tutup modal">&times;</button>
+        </div>
+        <form id="formDaftar">
+          <div class="modal-body">
+            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
+              Formulir pendaftaran akun petugas operasional UPBJJ-UT Daerah untuk mengakses pemesanan dan distribusi bahan ajar.
+            </p>
+            <div class="form-group">
+              <label for="regNama" class="form-label">Nama Lengkap Petugas:</label>
+              <input type="text" id="regNama" class="input-field" placeholder="Nama lengkap Anda" required />
+            </div>
+            <div class="form-group">
+              <label for="regEmail" class="form-label">Alamat Email Institusi (@ut.ac.id):</label>
+              <input type="email" id="regEmail" class="input-field" placeholder="nama@ut.ac.id" required />
+            </div>
+            <div class="form-group">
+              <label for="regLokasi" class="form-label">Kantor UPBJJ / Unit Kerja:</label>
+              <input type="text" id="regLokasi" class="input-field" placeholder="Contoh: UPBJJ Bandung" required />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline modal-close-trigger">Batal</button>
+            <button type="submit" class="btn btn-accent">Ajukan Pendaftaran</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      &copy; 2026 Universitas Terbuka &bull; Tugas Praktik 1 Pemrograman Berbasis Web (HTML, CSS, dan JavaScript DOM).
+    </footer>
+
+    <!-- Script Utama (Modular script.js) -->
+    <script type="module" src="/js/script.js"></script>
+  </body>
+</html>

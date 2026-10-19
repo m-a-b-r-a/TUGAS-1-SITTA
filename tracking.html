@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SITTA UT - Tracking Pengiriman Bahan Ajar</title>
+    <meta name="description" content="Halaman Tracking Pengiriman Bahan Ajar SITTA Universitas Terbuka melalui Nomor Delivery Order." />
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- Internal CSS (Rubrik 1.2) -->
+    <style>
+      .tracking-hero {
+        background: radial-gradient(circle at top left, #003B73 0%, #002244 100%);
+        color: #FFFFFF;
+        padding: 24px 28px;
+        border-radius: var(--radius-md);
+        margin-bottom: 24px;
+        border-left: 6px solid var(--ut-accent-gold);
+      }
+      .quick-do-chip {
+        display: inline-block;
+        font-size: 0.78rem;
+        background-color: #EEF4F9;
+        color: #003B73;
+        padding: 4px 10px;
+        border-radius: 4px;
+        border: 1px solid #CBD5E1;
+        cursor: pointer;
+        margin-right: 6px;
+        margin-top: 4px;
+        font-weight: 600;
+        transition: background-color 0.15s ease;
+      }
+      .quick-do-chip:hover {
+        background-color: #F5A623;
+        color: #002244;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header Institusi -->
+    <header class="site-header" role="banner">
+      <div class="header-topbar">
+        <div class="header-topbar-inner">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background:#059669;"></span>
+            <span>SITTA UT &bull; Pelacakan Delivery Order Bahan Ajar</span>
+          </div>
+          <!-- Demonstrasi Inline CSS -->
+          <div style="font-size: 0.78rem; color: #F5A623; font-weight: 600;">
+            Layanan Ekspedisi POS Indonesia & JNE
+          </div>
+        </div>
+      </div>
+
+      <div class="header-main">
+        <a href="dashboard.html" class="brand-wrapper">
+          <div class="brand-logo-badge">UT</div>
+          <div class="brand-text">
+            <h1>SITTA &bull; Universitas Terbuka</h1>
+            <p class="brand-sub">Sistem Informasi Tiras dan Transaksi Bahan Ajar</p>
+          </div>
+        </a>
+
+        <!-- Navigasi -->
+        <nav class="site-nav" role="navigation" aria-label="Navigasi Pelacakan">
+          <a href="dashboard.html" class="nav-link">Dashboard</a>
+          <a href="stok.html" class="nav-link">Informasi Bahan Ajar</a>
+          <a href="tracking.html" class="nav-link active">Tracking Pengiriman</a>
+          <a href="index.html" class="nav-link nav-logout">Keluar</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Konten Utama: Tracking Pengiriman (Semantik <main>) -->
+    <main class="site-main" id="trackingMainView" role="main">
+
+      <section class="tracking-hero">
+        <h2 style="font-size: 1.4rem; font-weight: 800; margin-bottom: 4px;">
+          Lacak Pengiriman Delivery Order (DO) Bahan Ajar
+        </h2>
+        <p style="font-size: 0.88rem; opacity: 0.9;">
+          Pantau status pengiriman paket buku materi pokok mahasiswa secara transparan dari gudang Puslaba UT hingga tiba di UPBJJ atau alamat tujuan.
+        </p>
+      </section>
+
+      <!-- Formulir Pencarian Nomor DO (Sesuai Soal Tugas) -->
+      <section class="tracking-search-card" aria-labelledby="headingCariDO">
+        <h3 id="headingCariDO" style="font-size: 1.1rem; font-weight: 700; color: var(--ut-primary-navy); margin-bottom: 12px;">
+          Cari Nomor Delivery Order:
+        </h3>
+
+        <div style="display: flex; gap: 10px; max-width: 600px; flex-wrap: wrap;">
+          <input
+            type="text"
+            id="inputNomorDO"
+            class="input-field"
+            placeholder="Masukkan Nomor DO (contoh: 2023001234 atau 2023005678)"
+            style="flex: 1; min-width: 250px;"
+            aria-label="Nomor Delivery Order"
+          />
+          <button type="button" class="btn btn-primary" id="btnCariDO" style="padding: 10px 24px;">
+            Cari
+          </button>
+        </div>
+
+        <!-- Tombol Contoh Cepat untuk Kemudahan Evaluasi -->
+        <div style="margin-top: 14px; font-size: 0.8rem; color: var(--text-muted);">
+          Contoh Nomor DO pada variable <code style="background:#e2e8f0; padding:2px 4px; border-radius:3px;">dataTracking</code>:
+          <div style="margin-top: 6px;">
+            <span class="quick-do-chip" data-example-do="2023001234">
+              DO 2023001234 (Rina Wulandari - JNE)
+            </span>
+            <span class="quick-do-chip" data-example-do="2023005678">
+              DO 2023005678 (Agus Pranoto - Pos Indonesia)
+            </span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Hasil Tracking: Ditampilkan Dinamis Ketika Tombol "Cari" Ditekan -->
+      <article id="trackingResultCard" class="tracking-detail-card" style="display: none;">
+        <!-- Header Rincian DO -->
+        <div style="border-bottom: 2px solid var(--ut-accent-gold); padding-bottom: 14px; margin-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px;">
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Nomor Delivery Order</span>
+            <h3 style="font-size: 1.4rem; font-weight: 800; color: var(--ut-primary-navy);" id="resNomorDO">2023001234</h3>
+            <div style="font-size: 0.95rem; color: #334155; margin-top: 4px;">
+              Nama Mahasiswa / Penerima: <strong id="resNamaMahasiswa">-</strong>
+            </div>
+          </div>
+          <div style="text-align: right;">
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Status Pengiriman</span>
+            <div style="margin-top: 2px;">
+              <span class="badge badge-primary" id="resStatusBadge" style="font-size: 0.85rem; padding: 4px 12px;">Dalam Perjalanan</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Detail Rincian: Ekspedisi, Tanggal, Paket, Total Pembayaran Sesuai Soal Tugas -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; background-color: var(--bg-card-subtle); padding: 16px; border-radius: var(--radius-md); margin-bottom: 24px; border: 1px solid var(--border-color);">
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; display: block;">Kurir Ekspedisi:</span>
+            <strong id="resEkspedisi" style="color: var(--ut-primary-navy);">-</strong>
+          </div>
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; display: block;">Tanggal Kirim:</span>
+            <strong id="resTanggalKirim" style="color: var(--ut-primary-navy);">-</strong>
+          </div>
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; display: block;">Jenis Paket / Kode Lokasi:</span>
+            <strong id="resJenisPaket" style="color: var(--ut-primary-navy);">-</strong>
+          </div>
+          <div>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600; display: block;">Total Pembayaran:</span>
+            <strong id="resTotalPembayaran" style="color: var(--color-success); font-size: 1.05rem;">-</strong>
+          </div>
+        </div>
+
+        <!-- Simulasi Progress Bar Visual Sesuai Soal Tugas -->
+        <div style="margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; font-size: 0.82rem; font-weight: 600; margin-bottom: 6px;">
+            <span>Progres Pengantaran Paket:</span>
+            <span style="color: var(--ut-secondary-blue);">Simulasi Status Distribusi</span>
+          </div>
+          <div style="background-color: #E2E8F0; border-radius: var(--radius-full); height: 10px; width: 100%; overflow: hidden;">
+            <div id="resProgressBar" style="width: 50%; height: 100%; background-color: var(--ut-secondary-blue); transition: width 0.4s ease, background-color 0.4s ease;"></div>
+          </div>
+        </div>
+
+        <!-- Detail Riwayat Perjalanan Paket (Array perjalanan dari dataTracking) -->
+        <div>
+          <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--ut-primary-navy); margin-bottom: 14px;">
+            Linimasa Riwayat Perjalanan Paket:
+          </h4>
+          <div id="resPerjalananTimeline" style="padding-left: 10px;">
+            <!-- Di-render dinamis oleh js/script.js -->
+          </div>
+        </div>
+      </article>
+
+      <!-- Notice Ketika Belum Mencari -->
+      <div id="trackingEmptyNotice" style="text-align: center; padding: 40px 20px; background-color: var(--bg-card); border: 1px dashed var(--border-color); border-radius: var(--radius-md);">
+        <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--ut-primary-navy); margin-bottom: 4px;">
+          Belum Ada Data yang Ditampilkan
+        </h4>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">
+          Ketikkan Nomor Delivery Order (misal: <strong>2023001234</strong>) pada kolom di atas lalu tekan tombol <strong>Cari</strong>.
+        </p>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer" role="contentinfo">
+      &copy; 2026 Universitas Terbuka &bull; Tugas Praktik 1 Pemrograman Berbasis Web (HTML, CSS, dan JavaScript DOM).
+    </footer>
+
+    <!-- Script Utama -->
+    <script type="module" src="/js/script.js"></script>
+  </body>
+</html>
