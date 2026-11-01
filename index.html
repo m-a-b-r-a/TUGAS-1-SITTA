@@ -1,219 +1,515 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SITTA UT - Halaman Login</title>
-    <meta name="description" content="Aplikasi Pemesanan Bahan Ajar SITTA Universitas Terbuka - Halaman Login Sistem." />
-    <meta property="og:title" content="SITTA UT - Halaman Login" />
-    <meta property="og:description" content="Aplikasi Pemesanan Bahan Ajar SITTA Universitas Terbuka - Halaman Login Sistem." />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary_large_image" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SITTA UT - Portal Distribusi &amp; Pengendalian Bahan Ajar</title>
+  <meta name="description" content="Sistem Informasi Tiras dan Transaksi Bahan Ajar (SITTA) Universitas Terbuka - Layanan Distribusi dan Pengendalian Persediaan Bahan Ajar Nasional." />
+  <meta property="og:title" content="SITTA UT - Portal Distribusi &amp; Pengendalian Bahan Ajar" />
+  <meta property="og:description" content="Sistem Informasi Tiras dan Transaksi Bahan Ajar (SITTA) Universitas Terbuka - Layanan Distribusi dan Pengendalian Persediaan Bahan Ajar Nasional." />
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .portal-hero {
+      background: linear-gradient(135deg, #002244 0%, #003B73 70%, #0066B3 100%);
+      color: #FFFFFF;
+      padding: 44px 32px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 28px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+    .portal-hero::after {
+      content: '';
+      position: absolute;
+      right: -40px;
+      bottom: -40px;
+      width: 240px;
+      height: 240px;
+      background: radial-gradient(circle, rgba(245, 166, 35, 0.15) 0%, rgba(255,255,255,0) 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .portal-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+    }
+    .portal-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-xl);
+      border-color: var(--ut-secondary-blue);
+    }
+    .kpi-metric-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--kpi-border, #003B73);
+    }
+    .chart-panel-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+    }
+    .bar-chart-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+    .bar-chart-label {
+      width: 110px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--ut-primary-navy);
+      flex-shrink: 0;
+    }
+    .bar-chart-track {
+      flex: 1;
+      height: 22px;
+      background-color: #F1F5F9;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-chart-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #003B73 0%, #0066B3 100%);
+      border-radius: 4px;
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .bar-chart-val {
+      width: 90px;
+      text-align: right;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #1E293B;
+      flex-shrink: 0;
+    }
+    .status-segment-bar {
+      height: 16px;
+      border-radius: 999px;
+      overflow: hidden;
+      display: flex;
+      width: 100%;
+      background-color: #E2E8F0;
+      margin-bottom: 16px;
+    }
+    .status-segment-aman {
+      background-color: #059669;
+      transition: width 0.5s ease;
+    }
+    .status-segment-menipis {
+      background-color: #D97706;
+      transition: width 0.5s ease;
+    }
+    .status-segment-kosong {
+      background-color: #DC2626;
+      transition: width 0.5s ease;
+    }
+  </style>
+</head>
+<body>
 
-    <!-- External CSS: Modular Stylesheet -->
-    <link rel="stylesheet" href="/css/style.css" />
+  <!-- Header Institusi Universitas Terbuka -->
+  <header class="site-header">
+    <div class="header-topbar">
+      <div class="header-topbar-inner">
+        <div>
+          <span>SISTEM INFORMASI TIRAS DAN TRANSAKSI BAHAN AJAR (SITTA)</span>
+          <span style="margin: 0 8px; opacity: 0.5;">|</span>
+          <span>UNIVERSITAS TERBUKA</span>
+        </div>
+        <div style="font-size: 0.75rem; letter-spacing: 0.03em;">
+          <span>SISTEM INFORMASI TERPADU &bull; PENGENDALIAN TIRAS</span>
+        </div>
+      </div>
+    </div>
+    <div class="header-main">
+      <div class="header-brand">
+        <div class="ut-logo-placeholder">UT</div>
+        <div class="brand-text">
+          <h1>SITTA UT</h1>
+          <p>Distribusi Bahan Ajar dan Pengendalian Tiras UT-Daerah</p>
+        </div>
+      </div>
+      <nav class="main-nav" aria-label="Navigasi Utama">
+        <a href="/index.html" class="nav-link active">Beranda Portal</a>
+        <a href="/stok.html" class="nav-link">Stok Bahan Ajar</a>
+        <a href="/tracking.html" class="nav-link">Tracking Pengiriman DO</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Internal CSS: Demonstrasi Kriteria Rubrik Tugas Praktik 1 (CSS Internal) -->
-    <style>
-      .login-badge-dot {
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        border-radius: 50%;
-        background-color: #059669;
-        margin-right: 6px;
-        animation: pulseEffect 2s infinite;
-      }
-      @keyframes pulseEffect {
-        0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0.7); }
-        70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(5, 150, 105, 0); }
-        100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(5, 150, 105, 0); }
-      }
-      .demo-chip {
-        display: inline-block;
-        font-size: 0.75rem;
-        background-color: #EEF4F9;
-        color: #003B73;
-        padding: 4px 8px;
-        border-radius: 4px;
-        border: 1px solid #CBD5E1;
-        cursor: pointer;
-        margin: 2px;
-        transition: background-color 0.15s ease;
-      }
-      .demo-chip:hover {
-        background-color: #F5A623;
-        color: #002244;
-      }
-    </style>
-  </head>
+  <!-- Konten Utama Portal dengan Aplikasi Vue.js untuk Dashboard & Visualisasi Charts -->
+  <main id="dashboard-portal-app" class="page-container" style="max-width: 1240px; margin: 28px auto; padding: 0 20px;">
+    
+    <!-- Hero Section -->
+    <section class="portal-hero">
+      <div style="max-width: 820px;">
+        <span class="badge" style="background-color: var(--ut-accent-gold); color: #002244; font-weight: 800; font-size: 0.8rem; padding: 4px 10px; margin-bottom: 12px; display: inline-block;">
+          PORTAL OPERASIONAL SISTEM INFORMASI TIRAS
+        </span>
+        <h2 style="font-size: 2.1rem; line-height: 1.25; font-weight: 800; margin-bottom: 12px;">
+          Portal Layanan Distribusi &amp; Pengendalian Bahan Ajar Universitas Terbuka
+        </h2>
+        <p style="font-size: 1rem; opacity: 0.92; line-height: 1.6; margin-bottom: 24px;">
+          Selamat datang di portal operasional SITTA UT. Sistem ini menyediakan pemantauan persediaan tiras Buku Materi Pokok (BMP) di seluruh UT-Daerah, deteksi ambang batas safety stock, serta penerbitan dan pelacakan Delivery Order (DO) secara real-time.
+        </p>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <a href="/stok.html" class="btn btn-primary" style="background-color: var(--ut-accent-gold); color: #002244; font-weight: 700; border: none; padding: 12px 24px;">
+            Buka Stok Bahan Ajar &rarr;
+          </a>
+          <a href="/tracking.html" class="btn btn-secondary" style="background-color: rgba(255,255,255,0.15); color: #FFFFFF; border: 1px solid rgba(255,255,255,0.4); font-weight: 600; padding: 12px 24px;">
+            Buka Tracking Pengiriman DO &rarr;
+          </a>
+        </div>
+      </div>
+    </section>
 
-  <body>
-    <!-- Header Institusi Universitas Terbuka -->
-    <header class="site-header" role="banner">
-      <div class="header-topbar">
-        <div class="header-topbar-inner">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span class="login-badge-dot"></span>
-            <span>SITTA UT &bull; Sistem Informasi Tiras dan Transaksi Bahan Ajar</span>
+    <!-- METRIK KPI RINGKASAN SITTA UT -->
+    <section style="margin-bottom: 32px;" aria-label="Statistik Utama">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px;">
+        
+        <!-- KPI 1: Total Eksemplar Tiras -->
+        <article class="kpi-metric-card" style="--kpi-border: #003B73;">
+          <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;">
+            Total Eksemplar Tiras
+          </span>
+          <div style="font-size: 2rem; font-weight: 800; color: var(--ut-primary-navy); margin-top: 4px;">
+            {{ formatNumber(kpi.totalEksemplar) }}
           </div>
-          <!-- Demonstrasi Inline CSS -->
-          <div style="font-size: 0.78rem; color: #F5A623; font-weight: 600;">
-            Portal Login Petugas & Layanan UT Daerah
+          <p style="font-size: 0.8rem; color: #64748B; margin-top: 4px;">
+            Fisik Buku Materi Pokok di {{ kpi.totalUpbjj }} wilayah UPBJJ
+          </p>
+        </article>
+
+        <!-- KPI 2: Total Judul Modul -->
+        <article class="kpi-metric-card" style="--kpi-border: #F5A623;">
+          <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;">
+            Katalog Judul Bahan Ajar
+          </span>
+          <div style="font-size: 2rem; font-weight: 800; color: #B45309; margin-top: 4px;">
+            {{ kpi.totalJudul }}
           </div>
+          <p style="font-size: 0.8rem; color: #64748B; margin-top: 4px;">
+            Judul BMP aktif terdaftar dalam sistem
+          </p>
+        </article>
+
+        <!-- KPI 3: Total Transaksi DO -->
+        <article class="kpi-metric-card" style="--kpi-border: #059669;">
+          <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;">
+            Delivery Order Diterbitkan
+          </span>
+          <div style="font-size: 2rem; font-weight: 800; color: #047857; margin-top: 4px;">
+            {{ kpi.totalDO }}
+          </div>
+          <p style="font-size: 0.8rem; color: #64748B; margin-top: 4px;">
+            {{ kpi.doSelesai }} terkirim &bull; {{ kpi.doJalan }} dalam perjalanan
+          </p>
+        </article>
+
+        <!-- KPI 4: Indeks Keamanan Tiras -->
+        <article class="kpi-metric-card" style="--kpi-border: #DC2626;">
+          <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em;">
+            Modul Butuh Perhatian
+          </span>
+          <div style="font-size: 2rem; font-weight: 800; color: #B91C1C; margin-top: 4px;">
+            {{ kpi.menipis + kpi.kosong }}
+          </div>
+          <p style="font-size: 0.8rem; color: #64748B; margin-top: 4px;">
+            {{ kpi.menipis }} menipis &bull; {{ kpi.kosong }} kosong (butuh re-order)
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SECTION CHARTS & VISUALISASI DATA OPERASIONAL -->
+    <section style="margin-bottom: 36px;" aria-label="Visualisasi Grafik Operasional">
+      <div style="margin-bottom: 18px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 10px;">
+        <div>
+          <h3 style="font-size: 1.35rem; color: var(--ut-primary-dark); font-weight: 800;">
+            Visualisasi Grafik Persediaan &amp; Distribusi Bahan Ajar
+          </h3>
+          <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 2px;">
+            Pemantauan langsung distribusi eksemplar per wilayah UPBJJ dan progres pengiriman Delivery Order
+          </p>
+        </div>
+        <div style="font-size: 0.8rem; color: #64748B; background: #F1F5F9; padding: 6px 12px; border-radius: var(--radius-sm); border: 1px solid #CBD5E1;">
+          Data Tersinkronisasi Otomatis
         </div>
       </div>
 
-      <div class="header-main">
-        <a href="index.html" class="brand-wrapper">
-          <div class="brand-logo-badge">UT</div>
-          <div class="brand-text">
-            <h1>SITTA &bull; Universitas Terbuka</h1>
-            <p class="brand-sub">Layanan Pemesanan & Distribusi Bahan Ajar</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(460px, 1fr)); gap: 24px;">
+        
+        <!-- GRAFIK 1: DIAGRAM BATANG PERSEDIAAN STOK PER UPBJJ -->
+        <article class="chart-panel-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid #E2E8F0; padding-bottom: 12px;">
+            <div>
+              <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--ut-primary-navy);">
+                Grafik Stok Tiras per Lokasi UPBJJ
+              </h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">
+                Distribusi total eksemplar modul BMP aktif siap kirim di tiap gudang daerah
+              </p>
+            </div>
+            <span class="badge" style="background-color: #E0F2FE; color: #0284C7; font-weight: 700; font-size: 0.72rem;">
+              Bar Chart
+            </span>
           </div>
+
+          <!-- Batang Horisontal per Wilayah -->
+          <div style="display: flex; flex-direction: column; gap: 4px;">
+            <div v-for="item in stokPerUpbjj" :key="item.region" class="bar-chart-row">
+              <div class="bar-chart-label">
+                UPBJJ {{ item.region }}
+              </div>
+              <div class="bar-chart-track">
+                <div class="bar-chart-fill" :style="{ width: item.barWidth + '%' }"></div>
+              </div>
+              <div class="bar-chart-val">
+                {{ formatNumber(item.totalQty) }} eks
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top: 18px; padding-top: 12px; border-top: 1px dashed #E2E8F0; display: flex; justify-content: space-between; font-size: 0.78rem; color: #64748B;">
+            <span>Akumulasi: <strong>{{ formatNumber(kpi.totalEksemplar) }}</strong> eksemplar</span>
+            <span>Batas Aman Nasional: <strong>{{ formatNumber(kpi.totalSafety) }}</strong> eksemplar</span>
+          </div>
+        </article>
+
+        <!-- GRAFIK 2: KOMPOSISI STATUS KETERSEDIAAN & PROGRES EKSPEDISI -->
+        <article class="chart-panel-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; border-bottom: 1px solid #E2E8F0; padding-bottom: 12px;">
+            <div>
+              <h4 style="font-size: 1.05rem; font-weight: 700; color: var(--ut-primary-navy);">
+                Komposisi Status Tiras &amp; Logistik DO
+              </h4>
+              <p style="font-size: 0.8rem; color: var(--text-muted);">
+                Keseimbangan persediaan aman vs kritis dan performa pengiriman ekspedisi
+              </p>
+            </div>
+            <span class="badge" style="background-color: #ECFDF5; color: #059669; font-weight: 700; font-size: 0.72rem;">
+              Breakdown
+            </span>
+          </div>
+
+          <!-- Sub 1: Segmented Progress Bar Ketersediaan Stok -->
+          <div style="margin-bottom: 20px;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">
+              <span style="color: #1E293B;">Status Ketersediaan Tiras ({{ kpi.totalJudul }} Judul)</span>
+              <span style="color: #059669;">{{ kpi.persenAman }}% Aman</span>
+            </div>
+
+            <div class="status-segment-bar">
+              <div class="status-segment-aman" :style="{ width: kpi.persenAman + '%' }" title="Aman"></div>
+              <div class="status-segment-menipis" :style="{ width: kpi.persenMenipis + '%' }" title="Menipis"></div>
+              <div class="status-segment-kosong" :style="{ width: kpi.persenKosong + '%' }" title="Kosong"></div>
+            </div>
+
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.78rem;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#059669;"></span>
+                <span>Aman: <strong>{{ kpi.aman }} judul</strong> ({{ kpi.persenAman }}%)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#D97706;"></span>
+                <span>Menipis: <strong>{{ kpi.menipis }} judul</strong> ({{ kpi.persenMenipis }}%)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#DC2626;"></span>
+                <span>Kosong: <strong>{{ kpi.kosong }} judul</strong> ({{ kpi.persenKosong }}%)</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub 2: Status Distribusi Delivery Order -->
+          <div style="padding-top: 14px; border-top: 1px solid #F1F5F9;">
+            <div style="display: flex; justify-content: space-between; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">
+              <span style="color: #1E293B;">Progres Delivery Order ({{ kpi.totalDO }} Pesanan)</span>
+              <span style="color: #0284C7;">{{ kpi.persenDoSelesai }}% Sukses Terkirim</span>
+            </div>
+
+            <div class="status-segment-bar">
+              <div style="background-color: #059669;" :style="{ width: kpi.persenDoSelesai + '%' }"></div>
+              <div style="background-color: #0284C7;" :style="{ width: kpi.persenDoJalan + '%' }"></div>
+              <div style="background-color: #94A3B8;" :style="{ width: kpi.persenDoProses + '%' }"></div>
+            </div>
+
+            <div style="display: flex; gap: 16px; flex-wrap: wrap; font-size: 0.78rem;">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#059669;"></span>
+                <span>Terkirim: <strong>{{ kpi.doSelesai }}</strong> ({{ kpi.persenDoSelesai }}%)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#0284C7;"></span>
+                <span>Dalam Perjalanan: <strong>{{ kpi.doJalan }}</strong> ({{ kpi.persenDoJalan }}%)</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <span style="display:inline-block; width:10px; height:10px; border-radius:50%; background:#94A3B8;"></span>
+                <span>Diproses: <strong>{{ kpi.doProses }}</strong> ({{ kpi.persenDoProses }}%)</span>
+              </div>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+    </section>
+
+    <!-- 2 MODUL UTAMA SITTA UT -->
+    <section style="margin-bottom: 36px;">
+      <div style="margin-bottom: 18px;">
+        <h3 style="font-size: 1.35rem; color: var(--ut-primary-dark); font-weight: 800;">
+          Layanan Utama Sistem Distribusi Bahan Ajar SITTA UT
+        </h3>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">
+          Pilih modul di bawah untuk mengakses manajemen persediaan atau penerbitan ekspedisi:
+        </p>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 24px;">
+        
+        <!-- Kartu 1: Stok Bahan Ajar -->
+        <article class="portal-card" style="border-top: 5px solid #003B73; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span class="badge" style="background-color: #E0F2FE; color: #0369A1; font-weight: 700; font-size: 0.75rem;">
+                LAYANAN PERSEDIAAN
+              </span>
+              <span style="font-size: 0.8rem; font-weight: 600; color: #003B73;">6 Wilayah UPBJJ</span>
+            </div>
+            <h4 style="font-size: 1.25rem; font-weight: 700; color: var(--ut-primary-navy); margin-bottom: 10px;">
+              Pengelolaan Stok Bahan Ajar
+            </h4>
+            <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 24px;">
+              Pusat kendali persediaan Buku Materi Pokok (BMP) terpadu. Pantau kuantitas fisik di rak gudang, kelola batas safety stock, mutasi tiras, dan mitigasi modul menipis di seluruh UT-Daerah secara tepat waktu.
+            </p>
+          </div>
+          <a href="/stok.html" class="btn btn-primary" style="text-align: center; justify-content: center; width: 100%; padding: 12px;">
+            Akses Stok Bahan Ajar &rarr;
+          </a>
+        </article>
+
+        <!-- Kartu 2: Tracking Pengiriman DO -->
+        <article class="portal-card" style="border-top: 5px solid #D97706; display: flex; flex-direction: column; justify-content: space-between;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+              <span class="badge" style="background-color: #FEF3C7; color: #B45309; font-weight: 700; font-size: 0.75rem;">
+                LAYANAN DISTRIBUSI
+              </span>
+              <span style="font-size: 0.8rem; font-weight: 600; color: #B45309;">Ekspedisi Terintegrasi</span>
+            </div>
+            <h4 style="font-size: 1.25rem; font-weight: 700; color: #B45309; margin-bottom: 10px;">
+              Tracking &amp; Penerbitan Delivery Order
+            </h4>
+            <p style="font-size: 0.9rem; color: #475569; line-height: 1.6; margin-bottom: 24px;">
+              Layanan penerbitan surat jalan Delivery Order (DO) pengiriman paket kurikulum bahan ajar, kalkulasi tarif ekspedisi, dan pemantauan pergerakan status logistik hingga tiba di tangan mahasiswa.
+            </p>
+          </div>
+          <a href="/tracking.html" class="btn btn-primary" style="background-color: #D97706; text-align: center; justify-content: center; width: 100%; padding: 12px;">
+            Akses Tracking Pengiriman &rarr;
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- TABEL SNAPSHOT AKTIVITAS PENGIRIMAN TERKINI -->
+    <section class="card" style="padding: 24px; margin-bottom: 36px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 8px;">
+        <div>
+          <h4 style="font-size: 1.15rem; font-weight: 800; color: var(--ut-primary-navy);">
+            Aktivitas Distribusi Delivery Order Terkini
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-muted);">
+            Daftar pengiriman paket kurikulum bahan ajar terbaru yang sedang berjalan
+          </p>
+        </div>
+        <a href="/tracking.html" class="btn btn-secondary" style="font-size: 0.82rem; padding: 6px 14px;">
+          Lihat Seluruh Pengiriman &rarr;
         </a>
       </div>
-    </header>
 
-    <!-- Konten Utama: Halaman Login (Semantik <main>) -->
-    <main class="site-main login-page-wrapper" role="main">
-      <article class="login-card">
-        <div class="login-card-header">
-          <h2>Masuk ke SITTA UT</h2>
-          <p>Silakan masukkan surel dan kata sandi akun UT Anda</p>
-        </div>
-
-        <div class="login-card-body">
-          <form id="loginForm" novalidate>
-            <div class="form-group">
-              <label for="loginEmail" class="form-label">Alamat Surel (Email) <span style="color:#DC2626;">*</span></label>
-              <input
-                type="email"
-                id="loginEmail"
-                class="input-field"
-                placeholder="nama@ut.ac.id"
-                required
-                autocomplete="email"
-              />
-            </div>
-
-            <div class="form-group">
-              <label for="loginPassword" class="form-label">Kata Sandi (Password) <span style="color:#DC2626;">*</span></label>
-              <input
-                type="password"
-                id="loginPassword"
-                class="input-field"
-                placeholder="Masukkan kata sandi akun"
-                required
-                autocomplete="current-password"
-              />
-            </div>
-
-            <div class="login-actions-row">
-              <a href="javascript:void(0)" id="btnLupaPassword" style="color: #0066B3; text-decoration: none; font-weight: 600;">
-                Lupa Password?
-              </a>
-              <a href="javascript:void(0)" id="btnDaftar" style="color: #0066B3; text-decoration: none; font-weight: 600;">
-                Daftar Akun Baru
-              </a>
-            </div>
-
-            <div style="margin-top: 20px;">
-              <button type="submit" class="btn btn-accent btn-block" style="padding: 12px; font-size: 1rem;">
-                Login ke Sistem
-              </button>
-            </div>
-          </form>
-
-          <!-- Bantuan Evaluasi: Akun Demo dari dataPengguna -->
-          <div style="margin-top: 24px; padding-top: 16px; border-top: 1px dashed var(--border-color);">
-            <div style="font-size: 0.75rem; color: var(--text-muted); font-weight: 700; margin-bottom: 6px; text-transform: uppercase;">
-              Klik Akun Demo Cepat (dari dataPengguna):
-            </div>
-            <div>
-              <span class="demo-chip" data-demo-user="rina@ut.ac.id" title="Klik untuk mengisi akun Rina">
-                Akun: Rina Wulandari (UPBJJ Jakarta)
-              </span>
-              <span class="demo-chip" data-demo-user="agus@ut.ac.id" title="Klik untuk mengisi akun Agus">
-                Akun: Agus Pranoto (UPBJJ Makassar)
-              </span>
-              <span class="demo-chip" data-demo-user="admin@ut.ac.id" title="Klik untuk mengisi akun Admin">
-                Akun: Admin SITTA (Pusat)
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div class="login-card-footer">
-          Universitas Terbuka &bull; Puslaba Pondok Cabe Tangerang Selatan
-        </div>
-      </article>
-    </main>
-
-    <!-- MODAL BOX 1: LUPA PASSWORD (Sesuai Soal Tugas) -->
-    <div class="modal-overlay" id="modalLupaPassword" role="dialog" aria-modal="true" aria-labelledby="modalLupaTitle">
-      <div class="modal-box">
-        <div class="modal-header">
-          <h3 id="modalLupaTitle">Reset Kata Sandi Akun SITTA</h3>
-          <button type="button" class="modal-close-btn modal-close-trigger" aria-label="Tutup modal">&times;</button>
-        </div>
-        <form id="formLupaPassword">
-          <div class="modal-body">
-            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
-              Masukkan alamat surel UT Anda yang terdaftar pada sistem SITTA. Tautan pemulihan kata sandi akan dikirimkan ke surel tersebut.
-            </p>
-            <div class="form-group">
-              <label for="resetEmailInput" class="form-label">Alamat Email Terdaftar:</label>
-              <input type="email" id="resetEmailInput" class="input-field" placeholder="contoh: rina@ut.ac.id" required />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline modal-close-trigger">Batal</button>
-            <button type="submit" class="btn btn-primary">Kirim Tautan Reset</button>
-          </div>
-        </form>
+      <div class="table-responsive">
+        <table class="sitta-table">
+          <thead>
+            <tr>
+              <th>Nomor DO</th>
+              <th>Nama Mahasiswa</th>
+              <th>Paket Kurikulum</th>
+              <th>Ekspedisi</th>
+              <th>Tanggal Kirim</th>
+              <th>Total Biaya</th>
+              <th>Status Pengiriman</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in recentDeliveries" :key="item.nomorDO">
+              <td><strong>{{ item.nomorDO }}</strong></td>
+              <td>{{ item.nama }} ({{ item.nim }})</td>
+              <td style="font-size: 0.82rem;">{{ item.paketNama }}</td>
+              <td>{{ item.ekspedisi }}</td>
+              <td>{{ item.tanggalKirim }}</td>
+              <td>{{ formatRupiah(item.totalHarga) }}</td>
+              <td>
+                <span v-if="item.status === 'Terkirim'" class="badge-status-aman">
+                  <span class="badge-dot dot-aman"></span> Terkirim
+                </span>
+                <span v-else-if="item.status === 'Dalam Perjalanan'" class="badge-status-menipis" style="background-color: #E0F2FE; color: #0369A1; border-color: #BAE6FD;">
+                  <span class="badge-dot" style="background-color: #0284C7;"></span> Dalam Perjalanan
+                </span>
+                <span v-else class="badge-status-menipis">
+                  <span class="badge-dot dot-menipis"></span> Diproses
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
       </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Universal -->
+  <footer class="site-footer">
+    <div style="max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+      <div>&copy; 2026 Universitas Terbuka - Sistem Informasi Tiras dan Transaksi Bahan Ajar (SITTA UT)</div>
+      <div style="font-size: 0.75rem; opacity: 0.85;">SITTA UT - Universitas Terbuka</div>
     </div>
+  </footer>
 
-    <!-- MODAL BOX 2: DAFTAR AKUN BARU (Sesuai Soal Tugas) -->
-    <div class="modal-overlay" id="modalDaftar" role="dialog" aria-modal="true" aria-labelledby="modalDaftarTitle">
-      <div class="modal-box">
-        <div class="modal-header">
-          <h3 id="modalDaftarTitle">Pendaftaran Akun Petugas UT Daerah</h3>
-          <button type="button" class="modal-close-btn modal-close-trigger" aria-label="Tutup modal">&times;</button>
-        </div>
-        <form id="formDaftar">
-          <div class="modal-body">
-            <p style="font-size: 0.88rem; color: var(--text-muted); margin-bottom: 14px;">
-              Formulir pendaftaran akun petugas operasional UPBJJ-UT Daerah untuk mengakses pemesanan dan distribusi bahan ajar.
-            </p>
-            <div class="form-group">
-              <label for="regNama" class="form-label">Nama Lengkap Petugas:</label>
-              <input type="text" id="regNama" class="input-field" placeholder="Nama lengkap Anda" required />
-            </div>
-            <div class="form-group">
-              <label for="regEmail" class="form-label">Alamat Email Institusi (@ut.ac.id):</label>
-              <input type="email" id="regEmail" class="input-field" placeholder="nama@ut.ac.id" required />
-            </div>
-            <div class="form-group">
-              <label for="regLokasi" class="form-label">Kantor UPBJJ / Unit Kerja:</label>
-              <input type="text" id="regLokasi" class="input-field" placeholder="Contoh: UPBJJ Bandung" required />
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline modal-close-trigger">Batal</button>
-            <button type="submit" class="btn btn-accent">Ajukan Pendaftaran</button>
-          </div>
-        </form>
-      </div>
-    </div>
+  <!-- Scripts: Vendor Vue 3 & Dashboard App Module -->
+  <script src="/vendor/vue.global.prod.js"></script>
+  <script>
+    if (typeof Vue === 'undefined') {
+      document.write('<script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"><\/script>');
+    }
+  </script>
+  <script type="module" src="/js/dashboard-app.js"></script>
 
-    <!-- Footer -->
-    <footer class="site-footer" role="contentinfo">
-      &copy; 2026 Universitas Terbuka &bull; Tugas Praktik 1 Pemrograman Berbasis Web (HTML, CSS, dan JavaScript DOM).
-    </footer>
-
-    <!-- Script Utama (Modular script.js) -->
-    <script type="module" src="/js/script.js"></script>
-  </body>
+</body>
 </html>

@@ -113,7 +113,7 @@ export var dataTracking = {
         keterangan: "Tiba di Hub: TANGERANG SELATAN"
       },      
       {
-        waktu: "2025-08-25 10:12:20",
+        waktu: "2025-08-25 18:30:15",
         keterangan: "Diteruskan ke Kantor Jakarta Selatan"
       }
     ]
@@ -121,7 +121,7 @@ export var dataTracking = {
   "2023005678": {
     nomorDO: "2023005678",
     nama: "Agus Pranoto",
-    status: "Dikirim",
+    status: "Selesai",
     ekspedisi: "Pos Indonesia",
     tanggalKirim: "2025-08-25",
     paket: "0UPBJJBDG",
@@ -150,6 +150,174 @@ export var dataTracking = {
       {
         waktu: "2025-08-26 20:00:00",
         keterangan: "Selesai Antar. Penerima: Agus Pranoto"
+      }
+    ]
+  },
+  "2023002468": {
+    nomorDO: "2023002468",
+    nama: "Budi Santoso",
+    status: "Selesai",
+    ekspedisi: "JNE",
+    tanggalKirim: "2025-08-27",
+    paket: "0SBY02",
+    total: "Rp 195.000",
+    perjalanan: [
+      {
+        waktu: "2025-08-27 09:00:10",
+        keterangan: "Penerimaan di Hub Puslaba: Tangerang Selatan"
+      },
+      {
+        waktu: "2025-08-27 15:45:00",
+        keterangan: "Diteruskan ke Hub Logistik Surabaya"
+      },
+      {
+        waktu: "2025-08-28 11:20:45",
+        keterangan: "Tiba di Hub: Kota Surabaya"
+      },
+      {
+        waktu: "2025-08-28 17:10:00",
+        keterangan: "Selesai Antar. Penerima: Budi Santoso (UPBJJ Surabaya)"
+      }
+    ]
+  },
+  "2023003579": {
+    nomorDO: "2023003579",
+    nama: "Dewi Lestari",
+    status: "Dalam Perjalanan",
+    ekspedisi: "Pos Indonesia",
+    tanggalKirim: "2025-08-28",
+    paket: "0TMP01",
+    total: "Rp 240.000",
+    perjalanan: [
+      {
+        waktu: "2025-08-28 08:30:00",
+        keterangan: "Penerimaan di Loket: Tangerang Selatan. Pengirim: Universitas Terbuka"
+      },
+      {
+        waktu: "2025-08-28 13:10:20",
+        keterangan: "Pengiriman kargo udara ke Bandara Sultan Hasanuddin Makassar"
+      },
+      {
+        waktu: "2025-08-29 09:40:15",
+        keterangan: "Tiba di Hub Sentral Pengolahan Pos Makassar"
+      }
+    ]
+  },
+  "2023004680": {
+    nomorDO: "2023004680",
+    nama: "Ahmad Fauzi",
+    status: "Diproses",
+    ekspedisi: "JNE",
+    tanggalKirim: "2025-08-29",
+    paket: "0MLG01",
+    total: "Rp 150.000",
+    perjalanan: [
+      {
+        waktu: "2025-08-29 11:00:00",
+        keterangan: "Penerimaan di Loket: Gudang Puslaba Pusat"
+      },
+      {
+        waktu: "2025-08-29 16:20:30",
+        keterangan: "Proses sortir tujuan Malang Jawa Timur"
+      }
+    ]
+  },
+  "2023007891": {
+    nomorDO: "2023007891",
+    nama: "Siti Aminah",
+    status: "Dalam Perjalanan",
+    ekspedisi: "Pos Indonesia",
+    tanggalKirim: "2025-08-29",
+    paket: "0TMP01",
+    total: "Rp 210.000",
+    perjalanan: [
+      {
+        waktu: "2025-08-29 10:15:00",
+        keterangan: "Penerimaan di Loket Puslaba UT"
+      },
+      {
+        waktu: "2025-08-30 08:00:00",
+        keterangan: "Diteruskan ke Sentral Pengolahan Pos Makassar"
+      }
+    ]
+  },
+  "2023008902": {
+    nomorDO: "2023008902",
+    nama: "Hendra Wijaya",
+    status: "Selesai",
+    ekspedisi: "JNE",
+    tanggalKirim: "2025-08-26",
+    paket: "0JKT01",
+    total: "Rp 175.000",
+    perjalanan: [
+      {
+        waktu: "2025-08-26 09:00:00",
+        keterangan: "Penerimaan di Loket: Tangerang Selatan"
+      },
+      {
+        waktu: "2025-08-26 14:10:00",
+        keterangan: "Tiba di Hub JNE Jakarta Pusat"
+      },
+      {
+        waktu: "2025-08-27 10:30:00",
+        keterangan: "Selesai Antar. Penerima: Hendra Wijaya"
+      }
+    ]
+  },
+  "2023009013": {
+    nomorDO: "2023009013",
+    nama: "Nurul Hidayah",
+    status: "Diproses",
+    ekspedisi: "Pos Indonesia",
+    tanggalKirim: "2025-08-30",
+    paket: "0SBY02",
+    total: "Rp 160.000",
+    perjalanan: [
+      {
+        waktu: "2025-08-30 08:30:00",
+        keterangan: "Penerimaan di Loket: Gudang Puslaba Pusat"
+      }
+    ]
+  },
+  "2023009124": {
+    nomorDO: "2023009124",
+    nama: "Rizky Pratama",
+    status: "Selesai",
+    ekspedisi: "JNE",
+    tanggalKirim: "2025-08-25",
+    paket: "0UPBJJBDG",
+    total: "Rp 230.000",
+    perjalanan: [
+      {
+        waktu: "2025-08-25 10:00:00",
+        keterangan: "Penerimaan di Loket: Tangerang Selatan"
+      },
+      {
+        waktu: "2025-08-26 11:30:00",
+        keterangan: "Tiba di Hub JNE Kota Bandung"
+      },
+      {
+        waktu: "2025-08-26 16:45:00",
+        keterangan: "Selesai Antar. Penerima: Rizky Pratama"
+      }
+    ]
+  },
+  "2023009235": {
+    nomorDO: "2023009235",
+    nama: "Fitri Handayani",
+    status: "Dalam Perjalanan",
+    ekspedisi: "Pos Indonesia",
+    tanggalKirim: "2025-08-29",
+    paket: "0MLG01",
+    total: "Rp 185.000",
+    perjalanan: [
+      {
+        waktu: "2025-08-29 09:30:00",
+        keterangan: "Penerimaan di Loket: Puslaba Tangerang Selatan"
+      },
+      {
+        waktu: "2025-08-30 14:15:00",
+        keterangan: "Diteruskan ke Kantor Pos Malang"
       }
     ]
   }

@@ -289,14 +289,189 @@ function initDashboardPage() {
     });
   }
 
-  // Render Tabel Monitoring Progress DO (dataTracking)
-  renderMonitoringDOTable();
+  // Render Statistik Ringkas Eksekutif SITTA UT (Sesuai Masukan Revisi)
+  renderDashboardStatistics();
 
-  // Render Rekap Bahan Ajar (dataBahanAjar)
-  renderRekapBahanAjar();
+  // Modal Daftar Pengguna Sistem
+  const btnOpenModalUsers = document.getElementById('btnOpenModalUsers');
+  if (btnOpenModalUsers) {
+    btnOpenModalUsers.addEventListener('click', (e) => {
+      e.preventDefault();
+      renderModalUsersTable();
+      openModal('modalDataPengguna');
+    });
+  }
+
+  // Modal Alur Distribusi Bahan Ajar
+  const btnOpenModalAlur = document.getElementById('btnOpenModalAlur');
+  if (btnOpenModalAlur) {
+    btnOpenModalAlur.addEventListener('click', (e) => {
+      e.preventDefault();
+      openModal('modalAlurSITTA');
+    });
+  }
 }
 
-function renderMonitoringDOTable() {
+function renderDashboardStatistics() {
+  const elPengguna = document.getElementById('statTotalPengguna');
+  const elBahanAjar = document.getElementById('statTotalBahanAjar');
+  const elStok = document.getElementById('statTotalStok');
+  const elDO = document.getElementById('statTotalDO');
+  const elDODesc = document.getElementById('statDODesc');
+  const elBadgeRole = document.getElementById('statBadgeRole');
+
+  const listBahanAjar = getCombinedBahanAjar();
+  const doKeys = Object.keys(dataTracking);
+
+  let totalStokAll = 0;
+  listBahanAjar.forEach((b) => {
+    totalStokAll += Number(b.stok) || 0;
+  });
+
+  let inTransitCount = 0;
+  let deliveredCount = 0;
+  let processingCount = 0;
+
+  doKeys.forEach((k) => {
+    const s = dataTracking[k].status.toLowerCase();
+    if (s.includes('selesai') || s.includes('diterima')) {
+      deliveredCount++;
+    } else if (s.includes('perjalanan') || s.includes('antar') || s.includes('dikirim')) {
+      inTransitCount++;
+    } else {
+      processingCount++;
+    }
+  });
+
+  if (elPengguna) elPengguna.textContent = dataPengguna.length;
+  if (elBadgeRole) elBadgeRole.textContent = `${dataPengguna.length} Akun`;
+  if (elBahanAjar) elBahanAjar.textContent = listBahanAjar.length;
+  if (elStok) elStok.textContent = totalStokAll.toLocaleString('id-ID');
+  if (elDO) elDO.textContent = doKeys.length;
+  if (elDODesc) {
+    elDODesc.textContent = `${inTransitCount} Dalam Perjalanan • ${deliveredCount} Selesai • ${processingCount} Diproses.`;
+  }
+
+  // Render Visualisasi Charts Sesuai Permintaan
+  renderBarChartStok(listBahanAjar);
+  renderBreakdownStatusDO(dataTracking);
+}
+
+function renderBarChartStok(listBahanAjar) {
+  const container = document.getElementById('chartStokGudangContainer');
+  if (!container) return;
+  container.innerHTML = '';
+
+  // Akumulasi stok per kode lokasi
+  const lokasiMap = {};
+  const namaLokasiMap = {
+    '0TMP01': 'Makassar',
+    '0JKT01': 'Jakarta',
+    '0SBY02': 'Surabaya',
+    '0MLG01': 'Malang',
+    '0UPBJJBDG': 'Bandung'
+  };
+
+  listBahanAjar.forEach((item) => {
+    const loc = item.kodeLokasi || 'LAIN';
+    lokasiMap[loc] = (lokasiMap[loc] || 0) + (Number(item.stok) || 0);
+  });
+
+  const keys = Object.keys(lokasiMap);
+  const values = Object.values(lokasiMap);
+  const maxVal = Math.max(...values, 100);
+
+  keys.forEach((loc) => {
+    const stok = lokasiMap[loc];
+    const percentHeight = Math.max(14, Math.round((stok / maxVal) * 100));
+    const labelLokasi = namaLokasiMap[loc] || loc;
+
+    const col = document.createElement('div');
+    col.className = 'barchart-col';
+    col.title = `Gudang ${labelLokasi} (${loc}): ${stok} Eksemplar`;
+    col.innerHTML = `
+      <div class="barchart-val">${stok.toLocaleString('id-ID')}</div>
+      <div class="barchart-bar" style="height: ${percentHeight}%;"></div>
+      <div class="barchart-label" title="${loc} (${labelLokasi})">${labelLokasi}</div>
+    `;
+    container.appendChild(col);
+  });
+}
+
+function renderBreakdownStatusDO(trackingObj) {
+  const container = document.getElementById('chartStatusDOContainer');
+  if (!container) return;
+  container.innerHTML = '';
+
+  const doKeys = Object.keys(trackingObj);
+  const totalDO = doKeys.length || 1;
+
+  let countSelesai = 0;
+  let countPerjalanan = 0;
+  let countProses = 0;
+  let countJNE = 0;
+  let countPos = 0;
+
+  doKeys.forEach((k) => {
+    const item = trackingObj[k];
+    const s = item.status.toLowerCase();
+    if (s.includes('selesai') || s.includes('diterima')) countSelesai++;
+    else if (s.includes('perjalanan') || s.includes('antar') || s.includes('dikirim')) countPerjalanan++;
+    else countProses++;
+
+    if (item.ekspedisi && item.ekspedisi.toLowerCase().includes('pos')) countPos++;
+    else countJNE++;
+  });
+
+  const pctSelesai = Math.round((countSelesai / totalDO) * 100);
+  const pctPerjalanan = Math.round((countPerjalanan / totalDO) * 100);
+  const pctProses = Math.round((countProses / totalDO) * 100);
+  const pctJNE = Math.round((countJNE / totalDO) * 100);
+  const pctPos = Math.round((countPos / totalDO) * 100);
+
+  const items = [
+    { label: 'Selesai Antar (Terkirim)', count: countSelesai, pct: pctSelesai, color: '#059669' },
+    { label: 'Dalam Perjalanan Kurir', count: countPerjalanan, pct: pctPerjalanan, color: '#0284C7' },
+    { label: 'Diproses di Loket / Hub Puslaba', count: countProses, pct: pctProses, color: '#D97706' },
+    { label: 'Ekspedisi JNE Express', count: countJNE, pct: pctJNE, color: '#003B73' },
+    { label: 'Ekspedisi Pos Indonesia', count: countPos, pct: pctPos, color: '#F5A623' }
+  ];
+
+  items.forEach((item) => {
+    const div = document.createElement('div');
+    div.className = 'breakdown-item';
+    div.innerHTML = `
+      <div class="breakdown-meta">
+        <span>${item.label}</span>
+        <span>${item.count} Paket (${item.pct}%)</span>
+      </div>
+      <div class="breakdown-track">
+        <div class="breakdown-fill" style="width: ${item.pct}%; background-color: ${item.color};"></div>
+      </div>
+    `;
+    container.appendChild(div);
+  });
+}
+
+function renderModalUsersTable() {
+  const tbody = document.getElementById('modalUsersTableBody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+
+  dataPengguna.forEach((u, idx) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${idx + 1}</td>
+      <td><strong>${u.nama}</strong></td>
+      <td>${u.email}</td>
+      <td><span class="badge badge-primary">${u.role}</span></td>
+      <td>${u.lokasi}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+function renderMonitoringDOTable(onSelectDO) {
   const tbody = document.getElementById('monitoringDOTableBody');
   if (!tbody) return;
 
@@ -339,11 +514,23 @@ function renderMonitoringDOTable() {
       </td>
       <td><strong>${doItem.total}</strong></td>
       <td>
-        <a href="tracking.html?do=${doItem.nomorDO}" class="btn btn-sm btn-outline" style="text-decoration:none;">
-          Lacak Resi &rarr;
-        </a>
+        <button type="button" class="btn btn-sm btn-primary btn-action-track" data-do="${doItem.nomorDO}" style="padding: 4px 10px; font-size: 0.78rem;">
+          Lacak DO Ini
+        </button>
       </td>
     `;
+
+    const btnTrack = tr.querySelector('.btn-action-track');
+    if (btnTrack) {
+      btnTrack.addEventListener('click', () => {
+        if (typeof onSelectDO === 'function') {
+          onSelectDO(doItem.nomorDO);
+        } else {
+          window.location.href = `tracking.html?do=${doItem.nomorDO}`;
+        }
+      });
+    }
+
     tbody.appendChild(tr);
   });
 }
@@ -386,6 +573,16 @@ function initTrackingPage() {
   const btnCari = document.getElementById('btnCariDO');
   const resultCard = document.getElementById('trackingResultCard');
   const emptyNotice = document.getElementById('trackingEmptyNotice');
+
+  // Render Tabel Monitoring Seluruh Progress DO di tracking.html
+  renderMonitoringDOTable((selectedDO) => {
+    if (inputDO) inputDO.value = selectedDO;
+    cariDeliveryOrder(selectedDO);
+    const searchSection = document.querySelector('.tracking-search-card');
+    if (searchSection) {
+      searchSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  });
 
   // Baca query parameter URL jika diarahkan dari dashboard (?do=2023001234)
   const urlParams = new URLSearchParams(window.location.search);
@@ -548,6 +745,7 @@ function initStokPage() {
   const btnResetStok = document.getElementById('btnResetStokDefault');
 
   renderStokTable();
+  renderRekapBahanAjar();
 
   // Buka Modal Tambah Bahan Ajar Baru
   if (btnOpenModalTambah) {
@@ -591,6 +789,9 @@ function initStokPage() {
       // Tambahkan baris baru ke tabel menggunakan Javascript DOM createElement & appendChild
       appendStokRow(newBahanAjar, true);
 
+      // Perbarui juga tabel rekap bahan ajar
+      renderRekapBahanAjar();
+
       // Tutup modal dan reset form
       closeModal('modalTambahStok');
       formTambahStok.reset();
@@ -620,6 +821,7 @@ function initStokPage() {
       if (confirm('Kembalikan tabel stok ke 5 data dummy bawaan dataBahanAjar?')) {
         localStorage.removeItem(STORAGE_STOK_KEY);
         renderStokTable();
+        renderRekapBahanAjar();
         showAlert('Data stok dikembalikan ke data default dataBahanAjar.', 'info');
       }
     });

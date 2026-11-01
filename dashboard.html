@@ -63,7 +63,6 @@
           <a href="dashboard.html" class="nav-link active">Dashboard</a>
           <a href="stok.html" class="nav-link">Informasi Bahan Ajar</a>
           <a href="tracking.html" class="nav-link">Tracking Pengiriman</a>
-          <a href="#sectionMonitoring" class="nav-link">Laporan DO</a>
           <a href="javascript:void(0)" class="nav-link nav-logout" id="btnLogout">Keluar</a>
         </nav>
       </div>
@@ -84,159 +83,258 @@
 
         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
           <a href="stok.html" class="btn btn-accent">
-            Cek Stok Bahan Ajar
+            Informasi Bahan Ajar
           </a>
           <a href="tracking.html" class="btn btn-outline" style="background: rgba(255,255,255,0.15); color: #fff; border-color: rgba(255,255,255,0.3);">
-            Lacak Nomor DO
+            Tracking Pengiriman
           </a>
         </div>
       </section>
 
-      <!-- Menu Utama Dashboard Sesuai Soal Tugas -->
+      <!-- STATISTIK SEDERHANA SISTEM SITTA UT (Sesuai Masukan Revisi) -->
+      <section aria-labelledby="headingStatistikSITTA" style="margin-bottom: 28px;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+          <div>
+            <h3 id="headingStatistikSITTA" style="font-size: 1.15rem; font-weight: 800; color: var(--ut-primary-navy);">
+              Statistik Ringkas Operasional SITTA UT
+            </h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted);">
+              Ringkasan metrik data pengguna, katalog bahan ajar, dan status distribusi nasional.
+            </p>
+          </div>
+          <span class="badge badge-success" style="font-size: 0.75rem;">Sistem Online</span>
+        </div>
+
+        <div class="stats-overview-grid">
+          <!-- 1. Statistik Pengguna -->
+          <article class="stat-card stat-info">
+            <div class="stat-card-header">
+              <span class="stat-card-tag">PENGGUNA SISTEM</span>
+              <span class="stat-card-badge" id="statBadgeRole">5 Akun</span>
+            </div>
+            <div class="stat-card-value" id="statTotalPengguna">5</div>
+            <div class="stat-card-label">Pengguna Terdaftar</div>
+            <p class="stat-card-desc">
+              Total akun aktif mencakup UPBJJ Daerah, Puslaba, Fakultas, dan Admin.
+            </p>
+          </article>
+
+          <!-- 2. Statistik Judul Bahan Ajar -->
+          <article class="stat-card stat-accent">
+            <div class="stat-card-header">
+              <span class="stat-card-tag">KATALOG MODUL</span>
+              <span class="stat-card-badge">BMP UT</span>
+            </div>
+            <div class="stat-card-value" id="statTotalBahanAjar">5</div>
+            <div class="stat-card-label">Judul Bahan Ajar</div>
+            <p class="stat-card-desc">
+              Buku Materi Pokok (BMP) terdaftar dalam kurikulum pembelajaran aktif.
+            </p>
+          </article>
+
+          <!-- 3. Statistik Total Eksemplar Stok -->
+          <article class="stat-card">
+            <div class="stat-card-header">
+              <span class="stat-card-tag">PERSEDIAAN TIRAS</span>
+              <span class="stat-card-badge">Siap Kirim</span>
+            </div>
+            <div class="stat-card-value" id="statTotalStok">1.587</div>
+            <div class="stat-card-label">Total Stok Eksemplar</div>
+            <p class="stat-card-desc">
+              Akumulasi fisik buku cetak di seluruh lokasi gudang tiras terintegrasi.
+            </p>
+          </article>
+
+          <!-- 4. Statistik Transaksi Delivery Order (DO) -->
+          <article class="stat-card stat-success">
+            <div class="stat-card-header">
+              <span class="stat-card-tag">DISTRIBUSI DO</span>
+              <span class="stat-card-badge">Ekspedisi</span>
+            </div>
+            <div class="stat-card-value" id="statTotalDO">10</div>
+            <div class="stat-card-label">Transaksi Delivery Order</div>
+            <p class="stat-card-desc" id="statDODesc">
+              4 Dalam Perjalanan &bull; 4 Selesai &bull; 2 Diproses di Gudang.
+            </p>
+          </article>
+        </div>
+
+        <!-- VISUALISASI GRAFIK / CHARTS STATISTIK (Sesuai Permintaan Revisi) -->
+        <div class="charts-grid">
+          <!-- Grafik 1: Diagram Batang Persediaan Bahan Ajar per Lokasi Gudang -->
+          <article class="chart-card">
+            <div class="chart-card-header">
+              <div>
+                <h4 class="chart-card-title">Grafik Stok Tiras per Lokasi Gudang</h4>
+                <p class="chart-card-sub">Distribusi eksemplar modul BMP aktif siap kirim di tiap UPBJJ</p>
+              </div>
+              <span class="badge badge-primary">Bar Chart</span>
+            </div>
+            <div class="barchart-container" id="chartStokGudangContainer">
+              <!-- Di-render dinamis oleh script.js -->
+            </div>
+          </article>
+
+          <!-- Grafik 2: Komposisi Status Logistik & Ekspedisi DO -->
+          <article class="chart-card">
+            <div class="chart-card-header">
+              <div>
+                <h4 class="chart-card-title">Distribusi Status Delivery Order (DO)</h4>
+                <p class="chart-card-sub">Persentase dan progres seluruh pengiriman paket bahan ajar</p>
+              </div>
+              <span class="badge badge-success">Progres Logistik</span>
+            </div>
+            <div class="breakdown-list" id="chartStatusDOContainer">
+              <!-- Di-render dinamis oleh script.js -->
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- MENU UTAMA PEMESANAN & DISTRIBUSI (FOKUS & TANPA DUPLIKASI) -->
       <section aria-labelledby="headingMenuUtama">
-        <h3 id="headingMenuUtama" style="font-size: 1.2rem; font-weight: 800; color: var(--ut-primary-navy); margin-bottom: 16px;">
-          Menu Utama Pemesanan & Distribusi
+        <h3 id="headingMenuUtama" style="font-size: 1.15rem; font-weight: 800; color: var(--ut-primary-navy); margin-bottom: 14px;">
+          Menu Navigasi Layanan SITTA
         </h3>
 
         <div class="dashboard-grid-menu">
-          <!-- 1. Informasi Bahan Ajar -->
-          <a href="stok.html" class="menu-card" aria-label="Buka Informasi Bahan Ajar">
-            <span class="menu-card-tag">KATALOG</span>
+          <!-- 1. Informasi & Rekap Bahan Ajar -->
+          <a href="stok.html" class="menu-card" aria-label="Buka Informasi dan Rekap Bahan Ajar">
+            <span class="menu-card-tag">KATALOG & REKAP</span>
             <h4 class="menu-card-title">Informasi Bahan Ajar</h4>
             <p class="menu-card-desc">
-              Pantau ketersediaan stok modul BMP di seluruh lokasi gudang tiras (Puslaba dan UT Daerah).
+              Akses katalog persediaan modul BMP, filter pencarian per lokasi gudang, tabel rekapitulasi jumlah tiras, dan tambah stok baru secara dinamis menggunakan JavaScript DOM.
             </p>
             <div style="margin-top: auto; padding-top: 10px; font-weight: 700; color: var(--ut-secondary-blue); font-size: 0.85rem;">
-              Buka Katalog Stok
+              Buka Katalog & Rekap Bahan Ajar
             </div>
           </a>
 
-          <!-- 2. Tracking Pengiriman -->
-          <a href="tracking.html" class="menu-card" aria-label="Buka Tracking Pengiriman">
-            <span class="menu-card-tag">PELACAKAN</span>
+          <!-- 2. Tracking Pengiriman & Monitoring DO -->
+          <a href="tracking.html" class="menu-card" aria-label="Buka Tracking Pengiriman dan Monitoring DO">
+            <span class="menu-card-tag">PELACAKAN & MONITORING</span>
             <h4 class="menu-card-title">Tracking Pengiriman</h4>
             <p class="menu-card-desc">
-              Lacak posisi terkini paket Delivery Order (DO) bahan ajar melalui nomor resi ekspedisi JNE dan Pos Indonesia.
+              Lacak posisi terkini paket Delivery Order melalui pencarian nomor resi ekspedisi JNE / Pos, lihat linimasa perjalanan paket, serta pantau tabel monitoring seluruh progress DO bahan ajar.
             </p>
             <div style="margin-top: auto; padding-top: 10px; font-weight: 700; color: var(--ut-secondary-blue); font-size: 0.85rem;">
-              Lacak Paket DO
+              Buka Pelacakan & Monitoring DO
             </div>
           </a>
 
-          <!-- 3. Laporan: Monitoring Progress DO Bahan Ajar -->
-          <a href="#sectionMonitoring" class="menu-card" aria-label="Buka Laporan Monitoring Progress DO">
-            <span class="menu-card-tag">PROGRESS DO</span>
-            <h4 class="menu-card-title">Monitoring Progress DO</h4>
+          <!-- 3. Daftar Petugas / Pengguna Sistem -->
+          <a href="javascript:void(0)" class="menu-card" id="btnOpenModalUsers" aria-label="Lihat Data Pengguna Terdaftar">
+            <span class="menu-card-tag">HAK AKSES</span>
+            <h4 class="menu-card-title">Data Petugas Sistem</h4>
             <p class="menu-card-desc">
-              Pantau status pemrosesan tiras dari gudang Puslaba hingga pengantaran ke mahasiswa penerima.
+              Lihat rincian 5 akun pengguna yang terdaftar pada sistem (dataPengguna), mencakup peran UPBJJ-UT Jakarta, UPBJJ Makassar, Puslaba Pusat, Fakultas FISIP, dan Administrator.
             </p>
             <div style="margin-top: auto; padding-top: 10px; font-weight: 700; color: var(--ut-secondary-blue); font-size: 0.85rem;">
-              Lihat Progress DO
+              Tampilkan Data Petugas
             </div>
           </a>
 
-          <!-- 4. Laporan: Rekap Bahan Ajar -->
-          <a href="#sectionRekap" class="menu-card" aria-label="Buka Laporan Rekap Bahan Ajar">
-            <span class="menu-card-tag">REKAPITULASI</span>
-            <h4 class="menu-card-title">Rekap Bahan Ajar</h4>
+          <!-- 4. Panduan Alur Layanan SITTA -->
+          <a href="javascript:void(0)" class="menu-card" id="btnOpenModalAlur" aria-label="Lihat Alur Kerja Sistem">
+            <span class="menu-card-tag">SOP SISTEM</span>
+            <h4 class="menu-card-title">Alur Distribusi Bahan Ajar</h4>
             <p class="menu-card-desc">
-              Ringkasan total kuantitas tiras modul per kode lokasi gudang dan judul mata kuliah.
+              Pelajari sistematika dan alur kerja aplikasi mulai dari input pemesanan tiras, penerbitan Delivery Order, monitoring gudang, hingga pengantaran kurir ke alamat mahasiswa.
             </p>
             <div style="margin-top: auto; padding-top: 10px; font-weight: 700; color: var(--ut-secondary-blue); font-size: 0.85rem;">
-              Lihat Rekap Tiras
+              Pelajari Alur Kerja
             </div>
           </a>
-
-          <!-- 5. Histori Transaksi Bahan Ajar -->
-          <a href="#sectionMonitoring" class="menu-card" aria-label="Buka Histori Transaksi Bahan Ajar">
-            <span class="menu-card-tag">HISTORI</span>
-            <h4 class="menu-card-title">Histori Transaksi Bahan Ajar</h4>
-            <p class="menu-card-desc">
-              Daftar riwayat delivery order yang telah selesai dikirim dan diserahterimakan kepada mahasiswa.
-            </p>
-            <div style="margin-top: auto; padding-top: 10px; font-weight: 700; color: var(--ut-secondary-blue); font-size: 0.85rem;">
-              Histori Transaksi
-            </div>
-          </a>
-        </div>
-      </section>
-
-      <!-- BAGIAN LAPORAN 1: MONITORING PROGRESS DO BAHAN AJAR (Sesuai Soal Tugas) -->
-      <section id="sectionMonitoring" class="table-card" aria-labelledby="headingMonitoringDO">
-        <div style="padding: 18px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 id="headingMonitoringDO" style="font-size: 1.15rem; font-weight: 800; color: var(--ut-primary-navy);">
-              Monitoring Progress DO Bahan Ajar
-            </h3>
-            <p style="font-size: 0.82rem; color: var(--text-muted);">
-              Data pelacakan status Delivery Order yang sedang berjalan (dari variable dataTracking).
-            </p>
-          </div>
-          <a href="tracking.html" class="btn btn-sm btn-primary">
-            Buka Pencarian Tracking Lengkap
-          </a>
-        </div>
-
-        <div class="table-responsive">
-          <table class="sitta-table" role="table">
-            <thead>
-              <tr>
-                <th scope="col">Nomor DO</th>
-                <th scope="col">Nama Penerima</th>
-                <th scope="col">Ekspedisi (Paket)</th>
-                <th scope="col">Tgl Kirim</th>
-                <th scope="col" style="min-width: 180px;">Status & Progress</th>
-                <th scope="col">Total Pembayaran</th>
-                <th scope="col">Aksi</th>
-              </tr>
-            </thead>
-            <tbody id="monitoringDOTableBody">
-              <!-- Di-render dinamis oleh js/script.js dari dataTracking -->
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <!-- BAGIAN LAPORAN 2: REKAP BAHAN AJAR (Sesuai Soal Tugas) -->
-      <section id="sectionRekap" class="table-card" aria-labelledby="headingRekap">
-        <div style="padding: 18px 20px; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-          <div>
-            <h3 id="headingRekap" style="font-size: 1.15rem; font-weight: 800; color: var(--ut-primary-navy);">
-              Rekap Bahan Ajar per Lokasi Gudang
-            </h3>
-            <p style="font-size: 0.82rem; color: var(--text-muted);">
-              Ringkasan data persediaan modul BMP aktif (dari variable dataBahanAjar).
-            </p>
-          </div>
-          <div style="font-size: 0.85rem; font-weight: 700; color: var(--ut-primary-navy);" id="totalStokSummary">
-            0 Eksemplar
-          </div>
-        </div>
-
-        <div class="table-responsive">
-          <table class="sitta-table" role="table">
-            <thead>
-              <tr>
-                <th scope="col">Kode Lokasi</th>
-                <th scope="col">Kode BMP</th>
-                <th scope="col">Nama Bahan Ajar</th>
-                <th scope="col">Jenis</th>
-                <th scope="col">Edisi</th>
-                <th scope="col" style="text-align: right;">Jumlah Tiras (Stok)</th>
-              </tr>
-            </thead>
-            <tbody id="rekapBahanAjarTableBody">
-              <!-- Di-render dinamis oleh js/script.js dari dataBahanAjar -->
-            </tbody>
-          </table>
         </div>
       </section>
 
     </main>
 
+    <!-- MODAL BOX: DATA PETUGAS & PENGGUNA TERDAFTAR -->
+    <div id="modalDataPengguna" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalUsersTitle">
+      <div class="modal-container" style="max-width: 640px;">
+        <div class="modal-header">
+          <div>
+            <h3 id="modalUsersTitle" class="modal-title">Data Petugas & Pengguna Terdaftar</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+              Sumber data resmi dari variabel dataPengguna pada berkas js/data.js
+            </p>
+          </div>
+          <button type="button" class="modal-close-trigger" aria-label="Tutup modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="table-responsive">
+            <table class="sitta-table">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Nama Petugas</th>
+                  <th>Alamat Surel</th>
+                  <th>Peran (Role)</th>
+                  <th>Unit / Lokasi</th>
+                </tr>
+              </thead>
+              <tbody id="modalUsersTableBody">
+                <!-- Diisi dinamis dari dataPengguna -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary modal-close-trigger">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL BOX: PANDUAN ALUR DISTRIBUSI BAHAN AJAR -->
+    <div id="modalAlurSITTA" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modalAlurTitle">
+      <div class="modal-container" style="max-width: 620px;">
+        <div class="modal-header">
+          <div>
+            <h3 id="modalAlurTitle" class="modal-title">Alur Kerja Sistem Informasi SITTA UT</h3>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+              Berdasarkan referensi riset Sufandi (2021, 2022) tentang tiras dan transaksi bahan ajar.
+            </p>
+          </div>
+          <button type="button" class="modal-close-trigger" aria-label="Tutup modal">&times;</button>
+        </div>
+        <div class="modal-body" style="font-size: 0.88rem; line-height: 1.6; color: #334155;">
+          <div style="display: flex; flex-direction: column; gap: 14px;">
+            <div style="border-left: 3px solid var(--ut-primary-navy); padding-left: 12px;">
+              <strong>Tahap 1: Autentikasi Pengguna (Login)</strong>
+              <p style="margin: 2px 0 0; font-size: 0.82rem; color: var(--text-muted);">
+                Petugas UT Daerah atau Pusat masuk menggunakan email dan password tervalidasi terhadap dataPengguna.
+              </p>
+            </div>
+            <div style="border-left: 3px solid var(--ut-secondary-blue); padding-left: 12px;">
+              <strong>Tahap 2: Pemantauan Persediaan & Rekap Bahan Ajar</strong>
+              <p style="margin: 2px 0 0; font-size: 0.82rem; color: var(--text-muted);">
+                Petugas memeriksa ketersediaan modul BMP di halaman Informasi Bahan Ajar, melihat rekap per gudang, dan dapat menambah data stok baru secara dinamis via DOM.
+              </p>
+            </div>
+            <div style="border-left: 3px solid var(--ut-accent-gold); padding-left: 12px;">
+              <strong>Tahap 3: Pembuatan & Monitoring Delivery Order (DO)</strong>
+              <p style="margin: 2px 0 0; font-size: 0.82rem; color: var(--text-muted);">
+                Gudang menyiapkan modul berdasarkan pesanan dan menerbitkan nomor resi DO untuk diserahkan ke kurir rekanan (JNE / Pos Indonesia).
+              </p>
+            </div>
+            <div style="border-left: 3px solid #059669; padding-left: 12px;">
+              <strong>Tahap 4: Pelacakan Pengiriman (Tracking DO)</strong>
+              <p style="margin: 2px 0 0; font-size: 0.82rem; color: var(--text-muted);">
+                Petugas maupun mahasiswa melacak nomor DO di halaman Tracking Pengiriman untuk memantau progress pengantaran dan linimasa log perjalanan hingga paket diterima.
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary modal-close-trigger">Mengerti</button>
+        </div>
+      </div>
+    </div>
+
     <!-- Footer -->
     <footer class="site-footer" role="contentinfo">
-      &copy; 2026 Universitas Terbuka &bull; Tugas Praktik 1 Pemrograman Berbasis Web (HTML, CSS, dan JavaScript DOM).
+      &copy; 2026 Universitas Terbuka &bull; Sistem Informasi Tiras dan Transaksi Bahan Ajar (SITTA UT).
     </footer>
 
     <!-- Script Utama -->

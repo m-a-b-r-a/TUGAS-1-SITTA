@@ -1,0 +1,6 @@
+{
+  "name": "SITTA UT - Pemesanan & Distribusi Bahan Ajar",
+  "description": "Aplikasi Pemesanan dan Distribusi Bahan Ajar SITTA Universitas Terbuka berbasis HTML5 semantik, CSS, dan JavaScript DOM interaktif.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
